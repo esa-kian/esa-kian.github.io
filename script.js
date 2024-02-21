@@ -37,14 +37,14 @@ var term = $('#terminal').terminal(function(command, term) {
     onInit: function() {
         set_size();
         this.echo('> Hi there!');
-        this.echo('> I\'m Ehsan');
-        this.echo('> A software engineer originally from Iran but currently based in Finland');
+        this.echo('> I\'m Esa');
+        this.echo('> A software engineer');
         this.echo('> I\'m a big fan of free and open-source software (FOSS) and an active member of the free software movement');
         this.echo('> Collaboration, transparency, and innovation are values that I hold dear');
         this.echo('> My focus is on creating and contributing to FOSS projects, as well as promoting their use and development');
         this.echo('> With my solid technical skills and expertise in software development, I\'m driven to make a positive impact on the world');
         this.echo('> You can read my posts in <https://medium.com/@eahmadikian>');
-        this.echo('> Also here\'s my resume <https://www.linkedin.com/in/ehsan-a-kian>');
+        this.echo('> Also here\'s my resume <https://www.linkedin.com/in/esa-kian>');
         this.echo('> And more links: <https://linktr.ee/ehsan_a_kian>'); 
         this.echo('');
         
