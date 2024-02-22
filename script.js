@@ -43,7 +43,7 @@ var term = $('#terminal').terminal(function(command, term) {
         this.echo('> Collaboration, transparency, and innovation are values that I hold dear');
         this.echo('> My focus is on creating and contributing to FOSS projects, as well as promoting their use and development');
         this.echo('> With my solid technical skills and expertise in software development, I\'m driven to make a positive impact on the world');
-        this.echo('> You can read my posts in <https://medium.com/@eahmadikian>');
+        this.echo('> You can read my posts in <https://medium.com/@esakian>');
         this.echo('> Also here\'s my resume <https://www.linkedin.com/in/esa-kian>');
         this.echo('> And more links: <https://linktr.ee/ehsan_a_kian>'); 
         this.echo('');
