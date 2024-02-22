@@ -7228,8 +7228,8 @@
     // :: TERMINAL PLUGIN CODE
     // -----------------------------------------------------------------------
     var version_set = !$.terminal.version.match(/^\{\{/);
-    var copyright = 'Copyright (c) 2023 Ehsan A. Kian ' +
-        '<https://github.com/ehsan-a-kian>';
+    var copyright = 'Copyright (c) 2023 Esa Kian ' +
+        '<https://github.com/esa-kian>';
     var version_string = version_set ? ' v. ' + $.terminal.version : ' ';
     // regex is for placing version string aligned to the right
     var reg = new RegExp(' {' + version_string.length + '}$');
