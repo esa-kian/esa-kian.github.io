@@ -52,8 +52,8 @@ const bioLines = [
 ]
 
 const typedLines = ref([])
-const typingSpeed = 30
-const initialDelay = 300
+const typingSpeed = 10
+const initialDelay = 100
 
 onMounted(async () => {
     await new Promise(resolve => setTimeout(resolve, initialDelay))
