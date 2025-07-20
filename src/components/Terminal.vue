@@ -1,6 +1,12 @@
 <template>
-    <div class="terminal">
-        <pre class="ascii-name">
+    <main class="terminal">
+        <header>
+            <p>
+                Copyleft (ɔ) 2025 Esa Kian · <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a>
+            </p>
+        </header>
+        <section aria-label="Ascii Hello Kitty">
+            <pre class="ascii-name">
     ⢀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⣠⠾⠛⠶⣄⢀⣠⣤⠴⢦⡀⠀⠀⠀⠀
 ⠀⠀⠀⢠⡿⠉⠉⠉⠛⠶⠶⠖⠒⠒⣾⠋⠀⢀⣀⣙⣯⡁⠀⠀⠀⣿⠀⠀⠀⠀
 ⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⡏⠀⠀⢯⣼⠋⠉⠙⢶⠞⠛⠻⣆⠀⠀⠀
@@ -13,14 +19,14 @@
 ⠀⠀⢀⠴⠚⠻⢧⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠞⠉⠉⠓⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠶⠶⠶⣶⣤⣴⡶⠶⠶⠟⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         </pre>
-        <span>
-            Copyleft (ɔ) 2025 Esa Kian · <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a>
-        </span>
-        <pre class="bio-text">
-            <span v-for="(line, index) in typedLines" :key="index" v-html="line"></span>
-            <iframe v-if="showPlayer" style="border-radius:12px" src="https://open.spotify.com/embed/track/2kRFrWaLWiKq48YYVdGcm8?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </pre>
-    </div>
+        </section>
+        <section aria-label="Terminal Output">
+            <pre class="bio-text">
+                <span v-for="(line, index) in typedLines" :key="index" v-html="line"></span>
+                <iframe v-if="showPlayer" style="border-radius:12px" src="https://open.spotify.com/embed/track/2kRFrWaLWiKq48YYVdGcm8?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </pre>
+        </section>
+    </main>
 </template>
 
 <script setup>
