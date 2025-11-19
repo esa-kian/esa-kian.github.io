@@ -32,12 +32,13 @@
 <body>
     <script src="./three.min.js"></script>
     <script>
+        let isCinematic = true;
         let scene, camera, renderer;
         let player = {
             velocity: new THREE.Vector3(),
-            baseSpeed: 0.5,
+            baseSpeed: 0.1,
             boostSpeed: 1.5,
-            autoForwardSpeed: 0.5,
+            autoForwardSpeed: 0.2,
             minSpeed: 0.1,
             maxSpeed: 5.0
         };
@@ -71,7 +72,7 @@
 
             const colors = [0xff00ff, 0x00ffff, 0xffff00, 0xff0000, 0x00ff00, 0x0000ff];
             for (let i = 0; i < 6; i++) {
-                const light = new THREE.PointLight(colors[i], 1.5, 150);
+                const light = new THREE.PointLight(colors[i], 1.5, 250);
                 light.position.set(
                     (Math.random() - 0.5) * 100,
                     (Math.random() - 0.5) * 100,
@@ -113,19 +114,19 @@
             if (!document.fullscreenElement) {
                 if (element.requestFullscreen) {
                     element.requestFullscreen();
-                } else if (element.mozRequestFullScreen) { 
+                } else if (element.mozRequestFullScreen) {
                     element.mozRequestFullScreen();
                 } else if (element.webkitRequestFullscreen) {
                     element.webkitRequestFullscreen();
-                } else if (element.msRequestFullscreen) { 
+                } else if (element.msRequestFullscreen) {
                     element.msRequestFullscreen();
                 }
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) { 
+                } else if (document.mozCancelFullScreen) {
                     document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) { 
+                } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
                 } else if (document.msExitFullscreen) {
                     document.msExitFullscreen();
@@ -134,13 +135,13 @@
         }
         function createStarField() {
             const starGeometry = new THREE.BufferGeometry();
-            const starCount = 1000;
+            const starCount = 5000;
             const positions = new Float32Array(starCount * 3);
 
             for (let i = 0; i < starCount * 3; i += 3) {
-                positions[i] = (Math.random() - 0.5) * 1000;
-                positions[i + 1] = (Math.random() - 0.5) * 1000;
-                positions[i + 2] = (Math.random() - 0.5) * 1000;
+                positions[i] = (Math.random() - 0.5) * 5000;
+                positions[i + 1] = (Math.random() - 0.5) * 5000;
+                positions[i + 2] = (Math.random() - 0.5) * 5000;
             }
 
             starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -181,8 +182,8 @@
                 : geometries[Math.floor(Math.random() * geometries.length)];
 
             const material = new THREE.MeshPhongMaterial({
-                color: new THREE.Color().setHSL(Math.random(), 1, 0.5),
-                emissive: new THREE.Color().setHSL(Math.random(), 1, 0.3),
+                color: new THREE.Color().setHSL(Math.random(), 1, 0.1),
+                emissive: new THREE.Color().setHSL(Math.random(), 1, 0.1),
                 shininess: 100,
                 wireframe: false,
                 transparent: false,
@@ -271,43 +272,46 @@
 
         function updatePlayer() {
             const forward = new THREE.Vector3();
-            const right = new THREE.Vector3();
-            const up = new THREE.Vector3(0, 1, 0);
 
-            camera.getWorldDirection(forward);
-            right.crossVectors(forward, up);
-
-            let speed = (keys['shift']) ? player.boostSpeed : player.baseSpeed;
-
-            if (keys['w']) {
-                player.autoForwardSpeed += 0.05;
-            }
-            if (keys['s']) {
-                player.autoForwardSpeed -= 0.05;
-            }
-
+            if (keys['w']) player.autoForwardSpeed += 0.05;
+            if (keys['s']) player.autoForwardSpeed -= 0.05;
             player.autoForwardSpeed = Math.max(player.minSpeed, Math.min(player.maxSpeed, player.autoForwardSpeed));
 
-            speed = (keys['shift']) ? player.boostSpeed : player.autoForwardSpeed;
+            let speed = (keys['shift']) ? player.boostSpeed : player.autoForwardSpeed;
 
+            if (isCinematic) {
+            
+                camera.rotation.y = Math.sin(time * 0.2) * 0.6 + Math.cos(time * 0.05) * 0.3;
 
-            const moveVector = new THREE.Vector3();
+                camera.rotation.x = Math.cos(time * 0.50) * 0.5;
 
-            moveVector.add(forward.clone().multiplyScalar(speed));
+                camera.rotation.z = -camera.rotation.y * 0.50;
 
-            if (keys['a']) moveVector.sub(right.clone().multiplyScalar(player.baseSpeed));
-            if (keys['d']) moveVector.add(right.clone().multiplyScalar(player.baseSpeed));
+                camera.getWorldDirection(forward);
+                camera.position.add(forward.multiplyScalar(speed));
 
-            if (keys['e']) moveVector.y += player.baseSpeed;
-            if (keys['q']) moveVector.y -= player.baseSpeed;
+            } else {
+                const right = new THREE.Vector3();
+                const up = new THREE.Vector3(0, 1, 0);
+                camera.getWorldDirection(forward);
+                right.crossVectors(forward, up);
 
-            camera.position.add(moveVector);
+                const moveVector = new THREE.Vector3();
+                moveVector.add(forward.clone().multiplyScalar(speed));
+                if (keys['a']) moveVector.sub(right.clone().multiplyScalar(player.baseSpeed));
+                if (keys['d']) moveVector.add(right.clone().multiplyScalar(player.baseSpeed));
+                if (keys['e']) moveVector.y += player.baseSpeed;
+                if (keys['q']) moveVector.y -= player.baseSpeed;
+                camera.position.add(moveVector);
+
+                camera.rotation.z = 0;
+            }
         }
 
         function updateBackground() {
-            const hue = (time * 0.10) % 1;
+            const hue = (time * 0.01) % 1;
 
-            backgroundColor.setHSL(hue, 1.0, 0.10);
+            backgroundColor.setHSL(hue, 1.0, 0.1);
 
             scene.background = backgroundColor;
 
@@ -334,7 +338,7 @@
                     obj.position.z = obj.userData.basePos.z + Math.sin(t * 0.7) * obj.userData.orbitRadius;
 
                     const hue = (time * 0.1 + obj.userData.floatOffset) % 1;
-                    obj.material.emissive.setHSL(hue, 1, 0.3);
+                    obj.material.emissive.setHSL(hue, 1, 0.1);
                 });
             });
 
