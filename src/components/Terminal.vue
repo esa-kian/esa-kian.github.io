@@ -2,7 +2,7 @@
     <main class="terminal">
         <header>
             <p>
-                Copyleft (ɔ) 2025 Esa Kian · <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a>
+                Copyleft (ɔ) 2026 Esa Kian · <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a>
             </p>
         </header>
         <section aria-label="Ascii Hello Kitty">
